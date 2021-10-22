@@ -2,7 +2,6 @@ const container = document.getElementById("container");
 const searchInput = document.getElementById("search");
 
 let searchTerm = '';
-console.log(searchInput)
 
 searchInput.addEventListener("keyup", (e) => {
 	searchTerm = e.target.value.toLowerCase();
@@ -13,7 +12,7 @@ fetchIssues();
 
 function fetchIssues() {
 	fetch('https://api.github.com/repos/testing-library/react-testing-library/issues')
-	.then((response) => response.json())
+	.then((response) => {if(response.status >=200 && response.status < 300) return response.json()})
 	.then((data) => {showIssues(data)})
 	.catch(function (err) {
 		// There was an error
@@ -26,11 +25,7 @@ function showIssues(data){
 	data.filter(d => d.title.toLowerCase().includes(searchTerm))
 		.map(d => {
 		let {html_url, number, title, user, labels} = d;
-		console.log(labels)
-		let labelTags = '';
-		labels.map(l => {
-			labelTags += `<span class="label" style="background-color:#${l.color};color:${l.default?"black":"white"}">${l.name}</span>`
-		})
+		let labelsRow = createLabelsRow(labels);
 		container.innerHTML += `
 			<div class="box">
 				<a class="issue-link" href="${html_url}"></a>
@@ -40,12 +35,23 @@ function showIssues(data){
 					</a>
 					<b>#${number}</b> ${title}
 				</div>
-				<div class="row">
-					<div class="labels">
-						${labelTags}
-					</div>
-				</div>
+				${labelsRow}
 			</div>
 		`
 	})
+}
+
+function createLabelsRow(labels){
+	console.log(labels)
+	if(!labels || labels.length === 0) return '';
+	let labelTags = '';
+		labels.map(l => {
+			labelTags += `<span class="label" style="background-color:#${l.color};color:${l.default?"black":"white"}">${l.name}</span>`
+		})
+	let labelsRow = `<div class="row">
+						<div class="labels">
+							${labelTags}
+						</div>
+					</div>`;
+	return labelsRow;
 }
