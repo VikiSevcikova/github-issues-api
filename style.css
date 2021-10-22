@@ -1,0 +1,89 @@
+*{
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+.title{
+    text-align: center;
+}
+
+form{
+    max-width: 1400px;
+    margin: 2rem auto;
+}
+
+#search{
+    width: 100%;
+    font-size: 20px;
+}
+
+#container{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 1rem;
+}
+
+#container .box{
+    position: relative;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+#container .box:hover{
+    box-shadow: rgba(238, 255, 0, 0.63) 0px 0px 6px;
+    border-color: rgba(238, 255, 0, 0.63);
+}
+
+#container a{
+    display: inline-block;
+}
+
+.box .issue-link{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    display:inline;
+}
+
+.box .row{
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.box .row:last-child {
+    border-bottom: none;
+}
+
+.row .avatar{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.labels .label{
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.2rem;
+    margin: 0.5rem 0.25rem;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px -2px 0px 0px inset;
+}
+
+@media screen and (min-width: 600px) {
+    #container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+@media screen and (min-width: 1440px) {
+    #container {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
